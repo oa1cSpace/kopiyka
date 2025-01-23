@@ -31,6 +31,7 @@ export class UserTable1737039957874 implements MigrationInterface {
           {
             name: 'salt',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'createdAt',
