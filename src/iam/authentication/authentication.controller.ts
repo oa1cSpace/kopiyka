@@ -4,6 +4,7 @@ import { SignUpDto } from './dto/sign-up.dto';
 import { SignInDto } from './dto/sign-in.dto';
 import { Auth } from './decorators/auth.decorator';
 import { AuthType } from './enums/auth-type.enum';
+import { ActiveUser } from '../decorators/active-user.decorator';
 
 @Auth(AuthType.None) // to set full controller public available
 @Controller('authentication')
@@ -17,7 +18,8 @@ export class AuthenticationController {
 
   @HttpCode(HttpStatus.OK)
   @Post('sign-in')
-  signIn(@Body() signInDto: SignInDto) {
+  signIn(@ActiveUser() activeUser, @Body() signInDto: SignInDto) {
+    console.log('[active user]: ', activeUser);
     return this.authService.signin(signInDto);
   }
 

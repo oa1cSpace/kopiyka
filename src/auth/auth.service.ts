@@ -65,9 +65,7 @@ export class AuthService {
     const payload = await this.jwtService.verifyAsync(token, {
       secret: process.env.JWT_SECRET,
     });
-    console.log('payload: ', payload);
     const user = await this.userService.get({ id: payload.sub });
-    console.log('user: ', user);
     if (!user) {
       throw new Error('User not found');
     }
