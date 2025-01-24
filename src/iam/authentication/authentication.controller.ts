@@ -5,6 +5,7 @@ import { SignInDto } from './dto/sign-in.dto';
 import { Auth } from './decorators/auth.decorator';
 import { AuthType } from './enums/auth-type.enum';
 import { ActiveUser } from '../decorators/active-user.decorator';
+import { RefreshTokenDto } from './dto/refresch-token.dto';
 
 @Auth(AuthType.None) // to set full controller public available
 @Controller('authentication')
@@ -21,6 +22,12 @@ export class AuthenticationController {
   signIn(@ActiveUser() activeUser, @Body() signInDto: SignInDto) {
     console.log('[active user]: ', activeUser);
     return this.authService.signin(signInDto);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('refresh-token')
+  refreshToken(@Body() body: RefreshTokenDto) {
+    return this.authService.refreshToken(body);
   }
 
   // cookies realization
