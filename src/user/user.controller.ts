@@ -5,12 +5,10 @@ import {
   Get,
   Param,
   Patch,
-  Post,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { UserCreateDto } from 'src/dto/user.create.dto';
 import { UserUpdateDto } from 'src/dto/user.update.dto';
 import { UUID } from 'crypto';
 import { UserGetDto } from 'src/dto/user.get.dto';
@@ -34,11 +32,11 @@ export class UserController {
     return plainToInstance(User, user); // Transform and apply @Exclude()
   }
 
-  @Post()
-  async create(@Body() user: UserCreateDto): Promise<Partial<User>> {
-    const newUser = this.userService.create(user);
-    return plainToInstance(User, newUser);
-  }
+  // @Post()
+  // async create(@Body() user: UserCreateDto): Promise<Partial<User>> {
+  //   const newUser = this.userService.create(user);
+  //   return plainToInstance(User, newUser);
+  // }
 
   @Patch()
   async update(@Body() user: UserUpdateDto) {

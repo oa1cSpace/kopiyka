@@ -59,7 +59,7 @@ export class UserService {
     await this.userRepository.delete(id);
   }
 
-  async isUserExist(user: Partial<User>): Promise<Boolean> {
+  async isUserExist(user: Partial<User>): Promise<boolean> {
     const u = await this.get(user);
     return u?.id ? true : false;
   }
