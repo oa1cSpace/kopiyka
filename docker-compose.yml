@@ -1,0 +1,35 @@
+---
+
+services:
+
+  db:
+    container_name: kopiyka_db
+    image: postgres:15
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USER_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - ${DB_PORT}:5432
+    volumes:
+      - kopiyka_db_volume:/var/lib/mysql
+
+  redis:
+    container_name: kopiyka_redis
+    image: redis:7.4.2-alpine
+    env_file:
+      - .env
+    ports:
+      - ${REDIS_PORT}:6379
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+    restart: always
+
+volumes:
+  kopiyka_db_volume:
