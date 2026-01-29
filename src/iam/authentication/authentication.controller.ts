@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Logger, Post } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import { SignUpDto } from './dto/sign-up.dto';
 import { SignInDto } from './dto/sign-in.dto';
@@ -11,6 +11,7 @@ import { RefreshTokenDto } from './dto/refresch-token.dto';
 @Controller('authentication')
 export class AuthenticationController {
   constructor(private readonly authService: AuthenticationService) {}
+  private readonly logger = new Logger();
 
   @Post('sign-up')
   singUp(@Body() signUpDto: SignUpDto) {
@@ -20,7 +21,7 @@ export class AuthenticationController {
   @HttpCode(HttpStatus.OK)
   @Post('sign-in')
   signIn(@ActiveUser() activeUser, @Body() signInDto: SignInDto) {
-    console.log('[active user]: ', activeUser);
+    this.logger.debug(`activeUser: ${activeUser}`)
     return this.authService.signin(signInDto);
   }
 

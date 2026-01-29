@@ -1,28 +1,34 @@
-import { instanceToPlain, Exclude } from 'class-transformer';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Exclude } from 'class-transformer';
+import { 
+  Column, 
+  CreateDateColumn, 
+  Entity, 
+  PrimaryGeneratedColumn, 
+  UpdateDateColumn 
+} from 'typeorm';
 
-@Entity('user')
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: true })
   name: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
-  @Column() // @Column({ select: false })
+  @Column({ select: false })
   @Exclude({ toPlainOnly: true })
   password: string;
 
-  @Column()
+  @Column({ nullable: true, select: false })
   @Exclude({ toPlainOnly: true })
   salt: string;
 
-  @Column()
+  @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
   createdAt: Date;
 
-  @Column()
+  @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
   updatedAt: Date;
 }

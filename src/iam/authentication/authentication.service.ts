@@ -49,9 +49,15 @@ export class AuthenticationService {
   }
 
   async signin(signinDto: SignInDto) {
-    const user = await this.userRepository.findOneBy({
-      email: signinDto.email,
-    });
+    const user = await this.userRepository.findOne({
+    where: { email: signinDto.email },
+    select: {
+      id: true,
+      email: true,
+      password: true,
+      salt: true,
+    },
+  });
     if (!user) {
       throw new UnauthorizedException('user does not exist');
     }

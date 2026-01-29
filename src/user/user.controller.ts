@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Param,
   Patch,
   UsePipes,
@@ -20,13 +21,15 @@ import { IActiveUserData } from 'src/iam/interfaces/active-user-data.interface';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+  private readonly logger = new Logger();
+
   @Get(':id')
   @UsePipes(new ValidationPipe({ transform: true }))
   async get(
     @ActiveUser() activeUser: IActiveUserData,
     @Param() params: UserGetDto,
   ): Promise<Partial<User>> {
-    console.log('GET user | active user: ', activeUser);
+    this.logger.debug(`GET activeUser: `, activeUser);
     const { id } = params;
     const user = this.userService.getById(id as UUID);
     return plainToInstance(User, user); // Transform and apply @Exclude()

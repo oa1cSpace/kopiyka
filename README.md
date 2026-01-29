@@ -59,4 +59,4 @@ $ npm run test:cov
 ```
 
 ## Good to know
-PostrgeSQL - [Don't do this.](https://wiki.postgresql.org/wiki/Don't_Do_This#Don.27t_use_upper_case_table_or_column_names)
+[PostrgeSQL](https://www.postgresql.org/docs/15/index.html) - [Don't do this.](https://wiki.postgresql.org/wiki/Don't_Do_This#Don.27t_use_upper_case_table_or_column_names)

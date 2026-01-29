@@ -33,3 +33,4 @@ services:
 
 volumes:
   kopiyka_db_volume:
+    name: "kopiyka_db_volume"
