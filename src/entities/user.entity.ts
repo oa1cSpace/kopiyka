@@ -27,8 +27,10 @@ export class User {
   salt: string;
 
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
+  @Exclude({ toPlainOnly: true })
   createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
+  @Exclude({ toPlainOnly: true })
   updatedAt: Date;
 }
